@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to ###</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .search-box {
+            margin-bottom: 20px;
+        }
+        .search-box input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .center-image {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>What do you want to cook today?</h1>
+    <h2>Please input the name of the food</h2>
+    <div class="search-box">
+        <form action="/search" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <img src="foodtype.jpg" alt="Search Image" class="center-image">
+</body>
+</html>
+
