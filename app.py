@@ -5,11 +5,9 @@ import pymysql
 import json
 import os
 from werkzeug.utils import secure_filename
-from flask_mysqldb import MySQL
-import re
 
-# Create Flask application
 app = Flask(__name__)
+
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -106,72 +104,9 @@ def welcome():
 app.secret_key = 'your_secret_key'  # For session management
 USER_DATA_FILE = 'user_data.json'
 
-# Initialize MySQL
-mysql = MySQL(app)
-# Load user data from the JSON file
-def load_user_data():
-    try:
-        with open(USER_DATA_FILE, 'r') as file:
-            return json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return {}
-
-# Save user data to the JSON file
-def save_user_data(data):
-    with open(USER_DATA_FILE, 'w') as file:
-        json.dump(data, file, indent=4)
-
-# Load recipes from JSON file
-with open('allrecipe.json', 'r') as file:
-    recipes = json.load(file)
-
-# Function to convert time to minutes for sorting
-def convert_time_to_minutes(time_str):
-    match = re.match(r"(\d+)\s*(minutes|hour)", time_str)
-    if match:
-        value, unit = match.groups()
-        value = int(value)
-        if unit == "hour":
-            return value * 60  # Convert hours to minutes
-        else:
-            return value
-    return 0  # Default if no match found
-
-# Function to find recipes by ingredient
-def find_recipes_by_ingredient(ingredient_name, recipes):
-    result = []
-    for recipe in recipes:
-        if any(ingredient['Ingredient'].lower() == ingredient_name.lower() for ingredient in recipe['Ingredients']):
-            result.append((recipe['Recipe Name'], recipe['Time'], recipe))
-    
-    if not result:
-        return "Sorry, no recipe exists."
-    
-    result.sort(key=lambda x: convert_time_to_minutes(x[1]))  # Sort by time
-    return result
-
-# Route to display the form
-@app.route('/form')
-def form():
-    return render_template('form.html')
-
-# Route to handle form submission
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        name = request.form['name']
-        age = request.form['age']
-        
-        cursor = mysql.connection.cursor()
-        cursor.execute('''INSERT INTO info_table (name, age) VALUES (%s, %s)''', (name, age))
-        mysql.connection.commit()
-        cursor.close()
-        
-        return f"Data for {name} has been submitted!"
-
-# Home route
 @app.route('/')
 def index():
+    # Load user posts from 'user_posts.json'
     if os.path.exists('user_posts.json'):
         with open('user_posts.json', 'r') as file:
             user_posts = json.load(file)
@@ -180,6 +115,19 @@ def index():
     
     return render_template('index.html', user_posts=user_posts)
 
+# Load user data from the JSON file
+def load_user_data():
+    try:
+        with open(USER_DATA_FILE, 'r') as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}  # Return an empty dictionary if the file doesn't exist or is empty
+
+# Save user data to the JSON file
+def save_user_data(data):
+    with open(USER_DATA_FILE, 'w') as file:
+        json.dump(data, file, indent=4)
+
 # Register a new user
 @app.route('/register', methods=['POST'])
 def register():
@@ -187,7 +135,8 @@ def register():
     data = load_user_data()
     if username in data:
         return "Username already exists!"
-    
+
+    # Add new user with default level and experience
     data[username] = {'level': 1, 'experience': 0}
     save_user_data(data)
     return redirect(url_for('user_page', username=username))
@@ -209,15 +158,54 @@ def gain_experience(username, amount):
     
     if user:
         user['experience'] += amount
+        # Check if experience reaches or exceeds 100
         if user['experience'] >= 100:
             user['level'] += 1
-            user['experience'] -= 100  # Carry over remaining experience
+            user['experience'] -= 100  # Carry over remaining experience if it exceeds 100
         
         save_user_data(data)
         return redirect(url_for('user_page', username=username))
     return "User not found!"
 
-# Search route
+# Load recipes from JSON file
+with open('allrecipe.json', 'r') as file:
+    recipes = json.load(file)
+
+# Function to find recipes by ingredient
+import re
+
+# Function to convert time to minutes for sorting
+def convert_time_to_minutes(time_str):
+    match = re.match(r"(\d+)\s*(minutes|hour)", time_str)
+    if match:
+        value, unit = match.groups()
+        value = int(value)
+        if unit == "hour":
+            return value * 60  # Convert hours to minutes
+        else:
+            return value
+    return 0  # Default if no match found
+
+def find_recipes_by_ingredient(ingredient_name, recipes):
+    result = []
+    for recipe in recipes:
+        # Check if the ingredient exists in the recipe's ingredient list
+        if any(ingredient['Ingredient'].lower() == ingredient_name.lower() for ingredient in recipe['Ingredients']):
+            result.append((recipe['Recipe Name'], recipe['Time'], recipe))  # Append recipe name, time, and recipe details
+
+    if not result:
+        return "Sorry, no recipe exists."
+    
+    # Sort the result by time (convert time to minutes)
+    result.sort(key=lambda x: convert_time_to_minutes(x[1]))  # Sorting by the time (second element in tuple)
+    
+    return result
+
+# Function to check allowed file extensions
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
@@ -228,7 +216,6 @@ def search():
         else:
             return render_template('search_result.html', recipes=result)
 
-# Recipe details route
 @app.route('/recipe/<recipe_name>')
 def recipe_details(recipe_name):
     for recipe in recipes:
@@ -236,7 +223,6 @@ def recipe_details(recipe_name):
             return render_template('recipe_details.html', recipe=recipe)
     return "Recipe not found!"
 
-# Upload image route
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_image():
     if request.method == 'POST':
@@ -265,7 +251,6 @@ def upload_image():
     else:
         return render_template('upload.html')
 
-# Display user posts
 @app.route('/user_posts')
 def user_posts():
     if os.path.exists('user_posts.json'):
@@ -275,9 +260,15 @@ def user_posts():
         user_posts = []
     return render_template('user_posts.html', user_posts=user_posts)
 
-# Function to check allowed file extensions
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+# @app.route('/user_page')
+# def user_page():
+#     user_data = {
+#         'username': 'JohnDoe',  # Replace with dynamic data if needed
+#         'level': 1,              # Replace with dynamic level
+#         'experience': 30,         # Replace with dynamic experience percentage
+#     }
+#     return render_template('user_page.html', username=user_data['username'],
+#                            level=user_data['level'], experience=user_data['experience'])
 
 if __name__ == '__main__':
     app.run(debug=True)
