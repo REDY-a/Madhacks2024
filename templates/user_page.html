@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <style>
+        .exp-bar-content {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .exp-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .exp-bar {
+            height: 30px;
+            width: 0%; /* Starting width, representing current experience */
+            background-color: #4caf50;
+            line-height: 30px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            transition: width 0.5s;
+        }
+        .level-display {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Hello, Username!</h2>
+    <div class = "exp-bar-content">
+    <div class="container">
+        <h3>Current Progress</h3>
+        <p>Welcome! Here’s what you gained so far!</p>
+        <p class="level-diaplay">LEVEL: <span id="level">1</span></p>
+        
+        <div class="exp-bar-container">
+            <div class="exp-bar" id="expBar">0%</div>
+        </div>
+
+        <!-- Optional: Add a button to simulate gaining experience -->
+        <button onclick="gainExperience(10)">Congratualations! You're a huge step further!</button>
+    </div>
+
+    <script>
+        let level = 1;
+
+        function gainExperience(amount) {
+            const expBar = document.getElementById('expBar');
+            const levelDisplay = document.getElementById('level');
+
+            let currentExp = parseInt(expBar.style.width) || 0;
+            currentExp += 3.84*amount/(level*level/(level^(1/1.2)));
+
+            if (currentExp >= 100) {
+                level++; // Increment level
+                levelDisplay.textContent = level; // Update level display
+                currentExp = currentExp - 100; // Carry over remaining experience if it exceeds 100
+            }
+
+            expBar.style.width = currentExp + '%';
+            expBar.textContent = (Math.ceil(currentExp * 10) / 10).toFixed(1) + '%';
+        }
+    </script>
+    </div>
+</body>
+</html>

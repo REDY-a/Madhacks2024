@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Recipe Search</title>
 </head>
 <body>
@@ -16,5 +17,8 @@
     <br>
     <!-- Link to all user posts -->
     <a href="{{ url_for('user_posts') }}">View All User Posts</a>
+    <div>
+        <button class="btn" onclick="window.location.href='user_page.html'">Go to user profile</button>
+    </div>
 </body>
 </html>
