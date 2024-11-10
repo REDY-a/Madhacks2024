@@ -48,6 +48,21 @@
             font-size: 18px;
             margin-top: 10px;
         }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -55,9 +70,9 @@
     <div class="profile-container">
         <h1>User Profile</h1>
         <p>Welcome, <strong>{{ username }}</strong>!</p>
-        <p class="level-info" >LEVEL: <strong  id="level">{{ level }}</strong></p>
+        <p class="level-info">LEVEL: <strong id="level">{{ level }}</strong></p>
         <p class="level-info">Experience: <strong>{{ experience }}%</strong></p>
-        <a href="{{ url_for('gain_experience', username=username, amount=10) }}">Get a bonus!</a>
+        <a href="{{ url_for('gain_experience', username=username, amount=10) }}" class="btn">Get a bonus!</a>
 
         <!-- Experience Progress Bar -->
         <div class="exp-bar-container">
@@ -66,13 +81,13 @@
         <button class="btn" onclick="gainExperience()">Congratulations!</button>
     
         <script>
-            let level = 1; // Initialize level
+            let level = {{ level }}; // Initialize level from the Flask variable
     
             function gainExperience() {
                 const expBar = document.getElementById('expBar');
                 const levelDisplay = document.getElementById('level');
     
-                // Parse the current width as a number, default to 50 if not set
+                // Parse the current width as a number, default to 0 if not set
                 let currentExp = parseFloat(expBar.style.width) || 0;
     
                 // Increase experience and check if it reaches or exceeds 100%
@@ -80,8 +95,7 @@
                 if (currentExp >= 100) {
                     level++; // Increment level
                     levelDisplay.textContent = level; // Update level display
-                     // Round up to one decimal place
-                    currentExp = currentExp - 100; // Carry over remaining experience if it exceeds 100
+                    currentExp -= 100; // Carry over remaining experience if it exceeds 100
                 }
                 
                 // Update experience bar
@@ -89,7 +103,6 @@
                 expBar.textContent = currentExp.toFixed(1) + '%';
             }
         </script>
-
     </div>
 
 </body>
