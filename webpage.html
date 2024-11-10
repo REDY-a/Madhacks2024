@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to ###</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Edu+AU+VIC+WA+NT+Pre&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #000000;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            margin: 20px;
+            font-size: 5rem; /* Larger font size for title */
+            margin-bottom: 50px;
+            font-family: 'Dosis', sans-serif;
+            font-weight: 600;
+        }
+        h2 {
+            margin: 10px;
+            font-size: 2.5rem;
+            font-family: 'Dosis', sans-serif;
+            font-weight: 600;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px; /* Space between h2 and search bar */
+            padding: 20px;
+            z-index: 1;
+        }
+        .search-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* More space between inputs */
+            padding: 20px;
+            z-index: 1;
+        }
+        .search-box input[type="text"] {
+            width: 400px; /* Larger search box */
+            padding: 15px; /* Larger padding */
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+            font-size: 1.5rem; /* Larger font size */
+        }
+        .search-box input[type="submit"] {
+            padding: 15px 30px; /* Larger button */
+            border-radius: 25px;
+            border: none;
+            background-color: #4aa14d;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.5rem; /* Larger font size */
+        }
+        .search-box input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        /* Pseudo-element for the image overlay with green tint */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('foodtype.jpg') no-repeat center center/cover;
+            opacity: 0.2;
+            filter: blur(3px);
+            z-index: -1;
+        }
+        /* Green overlay with some transparency */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(173, 245, 173, 0.3); 
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <h1>What do you want to cook today?</h1>
+    <h2>Please input the name of the food</h2>
+    <div class="search-box">
+        <form action="/search" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+</body>
+</html>
