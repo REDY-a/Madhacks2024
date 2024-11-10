@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <form action="/auth" method="POST">
+            <p>Username: <input type="text" name="username" /></p>
+            <p>Password: <input type="password" name="password" /></p>
+            
+            <!-- Radio buttons for login or signup -->
+            <p>
+                <input type="radio" id="login" name="action" value="login" checked>
+                <label for="login">Login</label>
+                <input type="radio" id="signup" name="action" value="signup">
+                <label for="signup">Create New Account</label>
+            </p>
+    
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+    </body>
+</html>
