@@ -18,7 +18,7 @@
     <!-- Link to all user posts -->
     <a href="{{ url_for('user_posts') }}">View All User Posts</a>
     <div>
-        <button class="btn" onclick="window.location.href='user_page.html'">Go to user profile</button>
+        <button class="btn" onclick="window.location.href='{{ url_for('user_page') }}'">Go to user profile</button>
     </div>
 </body>
 </html>

@@ -90,5 +90,15 @@ def user_posts():
         user_posts = []
     return render_template('user_posts.html', user_posts=user_posts)
 
+@app.route('/user_page')
+def user_page():
+    user_data = {
+        'username': 'JohnDoe',  # Replace with dynamic data if needed
+        'level': 1,              # Replace with dynamic level
+        'experience': 45         # Replace with dynamic experience percentage
+    }
+    return render_template('user_page.html', username=user_data['username'],
+                           level=user_data['level'], experience=user_data['experience'])
+
 if __name__ == '__main__':
     app.run(debug=True)
