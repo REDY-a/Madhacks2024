@@ -1,0 +1,54 @@
+[
+    {
+      "Recipe Name": "Chocolate Chip Cookies",
+      "Ingredients": [
+        { "Ingredient": "Butter", "Quantity": 1, "Unit": "Cup" },
+        { "Ingredient": "White Sugar", "Quantity": 1, "Unit": "Cup" },
+        { "Ingredient": "Brown Sugar", "Quantity": 1, "Unit": "Cup" },
+        { "Ingredient": "Eggs", "Quantity": 2, "Unit": "Large" },
+        { "Ingredient": "Vanilla Extract", "Quantity": 2, "Unit": "Teaspoons" },
+        { "Ingredient": "Flour", "Quantity": 3, "Unit": "Cups" },
+        { "Ingredient": "Baking Soda", "Quantity": 1, "Unit": "Teaspoon" },
+        { "Ingredient": "Salt", "Quantity": 0.5, "Unit": "Teaspoon" },
+        { "Ingredient": "Chocolate Chips", "Quantity": 2, "Unit": "Cups" }
+      ],
+      "Instructions": [
+        "Preheat oven to 350°F. Cream together the butter and sugars.",
+        "Add the eggs and vanilla extract to the mixture and beat well.",
+        "In a separate bowl, whisk together the flour, baking soda, and salt.",
+        "Gradually add the dry ingredients to the wet ingredients.",
+        "Stir in the chocolate chips.",
+        "Drop spoonfuls of dough onto a baking sheet.",
+        "Bake for 10-12 minutes or until golden brown.",
+        "Let cool on a wire rack.",
+        "Enjoy your homemade cookies!"
+      ],
+      "Time": "45 minutes"
+    },
+    {
+      "Recipe Name": "Spaghetti Bolognese",
+      "Ingredients": [
+        { "Ingredient": "Spaghetti", "Quantity": 400, "Unit": "Grams" },
+        { "Ingredient": "Ground Beef", "Quantity": 500, "Unit": "Grams" },
+        { "Ingredient": "Onion", "Quantity": 1, "Unit": "Large" },
+        { "Ingredient": "Garlic", "Quantity": 2, "Unit": "Cloves" },
+        { "Ingredient": "Tomato Sauce", "Quantity": 2, "Unit": "Cups" },
+        { "Ingredient": "Olive Oil", "Quantity": 2, "Unit": "Tablespoons" },
+        { "Ingredient": "Salt", "Quantity": "To Taste", "Unit": "" },
+        { "Ingredient": "Pepper", "Quantity": "To Taste", "Unit": "" },
+        { "Ingredient": "Parmesan Cheese", "Quantity": 0.25, "Unit": "Cup" }
+      ],
+      "Instructions": [
+        "Boil the spaghetti according to the package instructions.",
+        "Heat oil in a pan and cook the ground beef until browned.",
+        "Dice the onion and garlic and add to the beef.",
+        "Cook until the onion is translucent.",
+        "Add the tomato sauce and simmer for 15 minutes.",
+        "Season with salt and pepper.",
+        "Serve the sauce over the spaghetti.",
+        "Garnish with grated Parmesan cheese if desired.",
+        "Enjoy your meal!"
+      ],
+      "Time": "30 minutes"
+    }
+  ]
