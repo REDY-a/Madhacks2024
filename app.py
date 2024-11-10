@@ -4,8 +4,76 @@ import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    # Load user posts from 'user_posts.json'
+    if os.path.exists('user_posts.json'):
+        with open('user_posts.json', 'r') as file:
+            user_posts = json.load(file)
+    else:
+        user_posts = []
+    
+    return render_template('index.html', user_posts=user_posts)
+
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+app.secret_key = 'your_secret_key'  # For session management
+USER_DATA_FILE = 'user_data.json'
+
+# Load user data from the JSON file
+def load_user_data():
+    try:
+        with open(USER_DATA_FILE, 'r') as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}  # Return an empty dictionary if the file doesn't exist or is empty
+
+# Save user data to the JSON file
+def save_user_data(data):
+    with open(USER_DATA_FILE, 'w') as file:
+        json.dump(data, file, indent=4)
+
+# Register a new user
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.form['username']
+    data = load_user_data()
+    if username in data:
+        return "Username already exists!"
+
+    # Add new user with default level and experience
+    data[username] = {'level': 1, 'experience': 0}
+    save_user_data(data)
+    return redirect(url_for('user_page', username=username))
+
+# Retrieve and display user information
+@app.route('/user_page/<username>')
+def user_page(username):
+    data = load_user_data()
+    user = data.get(username)
+    if user:
+        return render_template('user_page.html', username=username, level=user['level'], experience=user['experience'])
+    return "User not found!"
+
+# Update user experience and level
+@app.route('/gain_experience/<username>/<int:amount>')
+def gain_experience(username, amount):
+    data = load_user_data()
+    user = data.get(username)
+    
+    if user:
+        user['experience'] += amount
+        # Check if experience reaches or exceeds 100
+        if user['experience'] >= 100:
+            user['level'] += 1
+            user['experience'] -= 100  # Carry over remaining experience if it exceeds 100
+        
+        save_user_data(data)
+        return redirect(url_for('user_page', username=username))
+    return "User not found!"
 
 # Load recipes from JSON file
 with open('allrecipe.json', 'r') as file:
@@ -25,16 +93,6 @@ def find_recipes_by_ingredient(ingredient_name, recipes):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-@app.route('/')
-def index():
-    # Load user posts from 'user_posts.json'
-    if os.path.exists('user_posts.json'):
-        with open('user_posts.json', 'r') as file:
-            user_posts = json.load(file)
-    else:
-        user_posts = []
-    
-    return render_template('index.html', user_posts=user_posts)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -89,6 +147,16 @@ def user_posts():
     else:
         user_posts = []
     return render_template('user_posts.html', user_posts=user_posts)
+
+# @app.route('/user_page')
+# def user_page():
+#     user_data = {
+#         'username': 'JohnDoe',  # Replace with dynamic data if needed
+#         'level': 1,              # Replace with dynamic level
+#         'experience': 30,         # Replace with dynamic experience percentage
+#     }
+#     return render_template('user_page.html', username=user_data['username'],
+#                            level=user_data['level'], experience=user_data['experience'])
 
 if __name__ == '__main__':
     app.run(debug=True)

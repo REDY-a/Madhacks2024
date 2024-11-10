@@ -1,0 +1,10 @@
+{
+    "JohnDoe": {
+        "level": 2,
+        "experience": 20
+    },
+    "JaneSmith": {
+        "level": 1,
+        "experience": 45
+    }
+}
