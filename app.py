@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 from mysql.connector import Error
 import pymysql
@@ -15,6 +15,14 @@ app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'localhost')
 app.config['MYSQL_DATABASE'] = os.getenv('MYSQL_DATABASE', 'userdata')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'username')
 app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', '20B423tian')
+
+# Database configuration
+db_config = {
+    'host': 'localhost',
+    'database': 'userdata',
+    'user': 'username',
+    'password': '20B423tian'
+}
 
 # Establish MySQL connection
 def create_connection():
@@ -67,35 +75,126 @@ def auth():
     password = request.form['password']
     action = request.form['action']
 
-    connection = create_connection()
-    cursor = connection.cursor()
-
     if action == 'login':
-        # Attempt to log in
-        query = "SELECT * FROM users WHERE username = %s AND password = %s"
-        cursor.execute(query, (username, password))
+        user_id = authenticate_user(username, password)
+        if user_id:
+            session['user_id'] = user_id
+            session['username'] = username
+            print("User logged in:", session) 
+            return redirect(url_for('user_page', username=username))
+        else:
+            return "Invalid credentials. Please try again."
+
+    elif action == 'signup':
+        if create_user(username, password):
+            session['user_id'] = get_user_id(username)
+            session['username'] = username
+            return redirect(url_for('user_page', username=username))
+        else:
+            return "Signup failed. Username may already be taken."
+    # connection = create_connection()
+    # cursor = connection.cursor()
+
+    # if action == 'login':
+    #     # Attempt to log in
+    #     query = "SELECT * FROM users WHERE username = %s AND password = %s"
+    #     cursor.execute(query, (username, password))
+    #     user = cursor.fetchone()
+    #     user_id = authenticate_user(username, password)
+    #     if user:
+    #         session['user_id'] = user_id
+    #         session['username'] = username  # Store the username in the session
+    #         print(f"User logged in: {session['username']}, ID: {session['user_id']}")
+    #         return redirect(url_for('user_page', username=username))
+    #     else:
+    #         return "Login failed. Check your credentials and try again."
+    
+    # elif action == 'signup':
+    #     # Check if username already exists
+    #     cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+    #     existing_user = cursor.fetchone()
+    #     if existing_user:
+    #         return "Username already exists. Choose a different username."
+
+    #     # Insert new user into database
+    #     query = "INSERT INTO users (username, password) VALUES (%s, %s)"
+    #     cursor.execute(query, (username, password))
+    #     connection.commit()
+    #     session['user_id'] = get_user_id(username)
+    #     session['username'] = username
+    #     print(f"User signed up and logged in: {session['username']}, ID: {session['user_id']}")
+    #     return redirect(url_for('user_page', username=username))
+
+    # cursor.close()
+    # connection.close()
+
+# Logout route to clear the session
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    session.pop('username', None)
+    return redirect(url_for('index'))
+    
+# Placeholder functions for authentication and user creation
+def authenticate_user(username, password):
+     # Check if the user exists in the database
+    try:
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
+        cursor.execute("SELECT id FROM users WHERE username = %s AND password = %s", (username, password))
         user = cursor.fetchone()
         if user:
-            return redirect(url_for('welcome'))
-        else:
-            return "Login failed. Check your credentials and try again."
-    
-    elif action == 'signup':
-        # Check if username already exists
+            return user[0]  # Return user ID if authentication is successful
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+    return None
+    # # Replace with actual database authentication logic
+    # if username == "catherine" and password == "catherine111":
+    #     return 1  # Mock user ID
+    # return None
+
+def create_user(username, password):
+    try:
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
-        existing_user = cursor.fetchone()
-        if existing_user:
-            return "Username already exists. Choose a different username."
-
-        # Insert new user into database
-        query = "INSERT INTO users (username, password) VALUES (%s, %s)"
-        cursor.execute(query, (username, password))
+        if cursor.fetchone():
+            return False  # Username already exists
+        cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, password))
         connection.commit()
-        return "Account created successfully! You can now log in."
+        return True
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+    return False
 
-    cursor.close()
-    connection.close()
-
+def get_user_id(username):
+    # Mock user ID retrieval
+    try:
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
+        cursor.execute("SELECT id FROM users WHERE username = %s", (username,))
+        user = cursor.fetchone()
+        if user:
+            return user[0]
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+    return None
+    
 # Welcome route after successful login
 @app.route('/welcome')
 def welcome():
@@ -106,6 +205,8 @@ USER_DATA_FILE = 'user_data.json'
 
 @app.route('/')
 def index():
+    logged_in = 'username' in session
+
     # Load user posts from 'user_posts.json'
     if os.path.exists('user_posts.json'):
         with open('user_posts.json', 'r') as file:
@@ -113,7 +214,7 @@ def index():
     else:
         user_posts = []
     
-    return render_template('index.html', user_posts=user_posts)
+    return render_template('index.html', logged_in=logged_in, user_posts=user_posts)
 
 # Load user data from the JSON file
 def load_user_data():
@@ -139,16 +240,44 @@ def register():
     # Add new user with default level and experience
     data[username] = {'level': 1, 'experience': 0}
     save_user_data(data)
-    return redirect(url_for('user_page', username=username))
+    return redirect(url_for('user_page', username=session.get('username')))
 
 # Retrieve and display user information
 @app.route('/user_page/<username>')
 def user_page(username):
-    data = load_user_data()
-    user = data.get(username)
-    if user:
-        return render_template('user_page.html', username=username, level=user['level'], experience=user['experience'])
-    return "User not found!"
+    print("Session contents:", session)
+
+    if 'user_id' not in session or session.get('username') != username:
+        print("User not logged in. Redirecting to auth_form.")
+        return redirect(url_for('auth_form')) # Redirect to homepage if not logged in
+
+     # Fetch user information from the database
+    try:
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+        user_data = cursor.fetchone()
+
+        if not user_data:
+            return "User not found!"
+        
+        # Render the user page with user-specific data
+        return render_template('user_page.html', username=user_data['username'], experience=user_data.get('experience', 50))
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return "An error occurred while retrieving user data."
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+    # data = load_user_data()
+    # user = data.get(username)
+    # if user:
+    #     return render_template('user_page.html', username=username, level=user['level'], experience=user['experience'])
+    # return "User not found!"
 
 # Update user experience and level
 @app.route('/gain_experience/<username>/<int:amount>')

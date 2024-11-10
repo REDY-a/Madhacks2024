@@ -19,7 +19,11 @@
         </button>
         <div class="dropdown-content">
             <a href="{{ url_for('user_posts') }}">View All User Posts</a>
-            <a href="{{ url_for('user_page', username='JohnDoe') }}">Go to User Profile</a>
+            {% if logged_in %}
+            <a href="{{ url_for('user_page', username=session.get('username')) }}">Go to User Profile</a>
+            {% else %}
+            <a href="{{ url_for('auth_form') }}">Log In / Create Account</a>
+            {% endif %}
         </div>
     </div>
 
@@ -28,6 +32,15 @@
         <input type="text" name="ingredient_name" placeholder="Search by ingredient" required>
         <input type="submit" value="Search">
     </form>
+
+     <!-- Navigation bar with login/logout button -->
+     <div class="navbar">
+        {% if logged_in %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('auth_form') }}">Log In / Create Account</a>
+        {% endif %}
+    </div>
 
     <script>
         // Toggle dropdown menu visibility

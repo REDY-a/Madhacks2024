@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>{{ username }}'s Profile</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='UserPage.css') }}">
 </head>
 <body>
@@ -11,10 +11,10 @@
     <div class="sidebar">
         <!-- Placeholder User Photo -->
         <div class="user-photo-placeholder"></div>
-        
+        <h1>Welcome, {{ username }}!</h1>
         <!-- Username Bar -->
         <div class="username-bar">
-            <p class="username">Username: JohnDoe</p>
+            <p class="username">Username: {{ username }}</p>
         </div>
 
         <!-- Experience Section -->
