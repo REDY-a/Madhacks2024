@@ -95,7 +95,7 @@ def user_page():
     user_data = {
         'username': 'JohnDoe',  # Replace with dynamic data if needed
         'level': 1,              # Replace with dynamic level
-        'experience': 45         # Replace with dynamic experience percentage
+        'experience': 45,         # Replace with dynamic experience percentage
     }
     return render_template('user_page.html', username=user_data['username'],
                            level=user_data['level'], experience=user_data['experience'])
