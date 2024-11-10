@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Recipe Search</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='index_styles.css') }}">
 </head>
 <body>
+    <!-- Hamburger Menu Bar -->
+    <div class="menu-bar">
+        <button class="menu-btn" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <div class="dropdown-content">
+            <a href="{{ url_for('user_posts') }}">View All User Posts</a>
+            <a href="{{ url_for('user_page', username='JohnDoe') }}">Go to User Profile</a>
+        </div>
+    </div>
+
     <h1>Welcome to Recipe Finder</h1>
     <form action="{{ url_for('search') }}" method="post">
         <input type="text" name="ingredient_name" placeholder="Search by ingredient" required>
         <input type="submit" value="Search">
     </form>
 
-    <br>
-    <!-- Link to all user posts -->
-    <a href="{{ url_for('user_posts') }}">View All User Posts</a>
-    <div>
-        <button class="btn" onclick="window.location.href='{{ url_for('user_page', username='JohnDoe') }}'">Go to user profile</button>
-    </div>
+    <script>
+        // Toggle dropdown menu visibility
+        function toggleMenu() {
+            const dropdown = document.querySelector('.dropdown-content');
+            dropdown.classList.toggle('show');
+        }
+    </script>
 </body>
 </html>

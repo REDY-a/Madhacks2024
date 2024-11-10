@@ -17,6 +17,67 @@ body {
     padding: 20px;
 }
 
+/* Hamburger Menu Bar Styles */
+.menu-bar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 7px; /* Increased the space between the bars */
+}
+
+.bar {
+    width: 30px; /* Increased width of bars */
+    height: 5px; /* Increased height of bars */
+    background-color: #4aa14d;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 200px; /* Increased width of the dropdown */
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 15px 20px; /* Increased padding for longer space */
+    color: #333;
+    text-decoration: none;
+    font-size: 1.2rem; /* Increased font size for better readability */
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #f0f8ff;
+}
+
+/* Show dropdown menu when the button is clicked */
+.dropdown-content.show {
+    display: block;
+}
+
 h1 {
     font-size: 2.5rem;
     color: #4aa14d;
@@ -58,14 +119,6 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #388e3c;
 }
-
-a {
-    margin-top: 20px;
-    color: #4aa14d;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-}
 /* Pseudo-element for the image overlay with green tint */
 body::after {
     content: "";
@@ -90,7 +143,4 @@ body::before {
     height: 100%;
     background-color: rgba(173, 245, 173, 0.3); 
     z-index: -1;
-}
-a:hover {
-    color: #388e3c;
 }

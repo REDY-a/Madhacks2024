@@ -1,0 +1,195 @@
+/* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Logo style for top-left corner */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10; /* Ensure it's above other content */
+    font-weight: bold; /* Make the logo bold */
+}
+
+.logo {
+    width: 200px; /* Adjust the size of the logo */
+    height: auto;
+}
+
+/* Title and Time */
+h1 {
+    font-size: 4rem;
+    color: #236c26;
+    margin-bottom: 20px;
+    margin-top: 100px; /* Margin added to separate from top */
+}
+
+p {
+    font-size: 2rem;
+    color: #555;
+    margin-bottom: 30px;
+    /* Added margin to separate from title */
+}
+
+/* Main container for Ingredients and Instructions */
+.container {
+    display: flex;
+    flex-direction: column; /* Stack the containers vertically */
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Ingredients and Instructions containers */
+.ingredients-container, .instructions-container {
+    background-color: rgba(255, 255, 255, 0.7); /* Half transparency */
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Title size for ingredients and instructions */
+.ingredients-container h2, .instructions-container h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.2rem;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+ul li:nth-child(even) {
+    background-color: #f9f9f9;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    width: 100%; /* Match the width of the ingredients container */
+    max-width: 800px; /* Ensure it doesn't get too wide */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Form elements to match the styling of ingredients container */
+form label {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+form input[type="text"], form input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+form input[type="submit"] {
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: #4aa14d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #388e3c;
+}
+
+a {
+    font-size: 1.1rem;
+    color: #4aa14d;
+    text-decoration: none;
+    margin-top: 30px;
+}
+
+a:hover {
+    color: #388e3c;
+}
+
+/* Position the "Back to Search" link at the top right */
+.go-back-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #4aa14d;
+    text-decoration: none;
+}
+
+.go-back-container:hover {
+    color: #388e3c;
+}
+
+/* Pseudo-element for the image overlay with green tint */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/foodtype.jpg') no-repeat center center/cover;
+    background-attachment: fixed; /* Fixed background */
+    opacity: 0.2;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+/* Green overlay with some transparency */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(173, 245, 173, 0.3); 
+    z-index: -1;
+}
+
+/* Style for the recipe image */
+img {
+    width: 100%; /* Make the image take up the full width of its container */
+    max-width: 800px; /* Ensure the image doesn't exceed the container width */
+    height: auto;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px; /* Add margin to separate the image from the content */
+}
