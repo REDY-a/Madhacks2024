@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <style>
+        .exp-bar-content {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .exp-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .exp-bar {
+            height: 30px;
+            width: 50%; /* Starting width, representing current experience */
+            background-color: #4caf50;
+            line-height: 30px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            transition: width 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <h2>Hello, Username!</h2>
+    <div class = "exp-bar-content">
+    <div class="container">
+        <h3>Current Progress</h3>
+        <p>Welcome! Here’s what you gained so far!</p>
+        
+        <div class="exp-bar-container">
+            <div class="exp-bar" id="expBar">50%</div>
+        </div>
+
+        <!-- Optional: Add a button to simulate gaining experience -->
+        <button onclick="gainExperience(10)">Congratualations! You're a huge step further!</button>
+    </div>
+
+    <script>
+        function gainExperience(amount) {
+            const expBar = document.getElementById('expBar');
+            let currentExp = parseInt(expBar.style.width);
+            currentExp = Math.min(100, currentExp + amount); // Cap at 100%
+            expBar.style.width = (currentExp + amount) + '%';
+            expBar.textContent = (currentExp + amount) + '%';
+        }
+    </script>
+    </div>
+</body>
+</html>
