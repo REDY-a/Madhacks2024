@@ -11,10 +11,10 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'username'
-app.config['MYSQL_PASSWORD'] = '20B423tian'
-app.config['MYSQL_DATABASE'] = 'userdata'
+app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'localhost')
+app.config['MYSQL_DATABASE'] = os.getenv('MYSQL_DATABASE', 'userdata')
+app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'username')
+app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', '20B423tian')
 
 # Establish MySQL connection
 def create_connection():

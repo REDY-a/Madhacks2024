@@ -1,0 +1,865 @@
+ /* Reset some default browser styles */
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full screen height */
+    margin: 0;
+}
+
+/* Container for the form */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading styles */
+form h2 {
+    margin-bottom: 20px;
+    color: #032c04;
+    font-size: 1.8rem;
+}
+
+/* Input fields styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #4aa14d;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Input field focus effect */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #032c04;
+    box-shadow: 0 0 5px rgba(0, 50, 0, 0.5);
+}
+
+/* Style for radio button container */
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    margin-bottom: 20px;
+}
+
+/* Style for individual radio button labels */
+.radio-buttons label {
+    font-size: 1.1rem;
+    color: #4aa14d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.radio-buttons input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+/* Custom styled radio buttons */
+.radio-buttons input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #032c04; /* Change color when selected */
+}
+
+.radio-buttons input[type="radio"]:checked + label:before {
+    content: "✔ "; /* Add a checkmark for the selected radio */
+    color: #4aa14d;
+}
+
+/* Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4aa14d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #032c04;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    form h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="submit"] {
+        font-size: 1rem;
+    }
+} /* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full screen height */
+    margin: 0;
+}
+
+/* Container for the form */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading styles */
+form h2 {
+    margin-bottom: 20px;
+    color: #032c04;
+    font-size: 1.8rem;
+}
+
+/* Input fields styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #4aa14d;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Input field focus effect */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #032c04;
+    box-shadow: 0 0 5px rgba(0, 50, 0, 0.5);
+}
+
+/* Style for radio button container */
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    margin-bottom: 20px;
+}
+
+/* Style for individual radio button labels */
+.radio-buttons label {
+    font-size: 1.1rem;
+    color: #4aa14d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.radio-buttons input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+/* Custom styled radio buttons */
+.radio-buttons input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #032c04; /* Change color when selected */
+}
+
+.radio-buttons input[type="radio"]:checked + label:before {
+    content: "✔ "; /* Add a checkmark for the selected radio */
+    color: #4aa14d;
+}
+
+/* Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4aa14d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #032c04;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    form h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="submit"] {
+        font-size: 1rem;
+    }
+} /* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full screen height */
+    margin: 0;
+}
+
+/* Container for the form */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading styles */
+form h2 {
+    margin-bottom: 20px;
+    color: #032c04;
+    font-size: 1.8rem;
+}
+
+/* Input fields styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #4aa14d;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Input field focus effect */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #032c04;
+    box-shadow: 0 0 5px rgba(0, 50, 0, 0.5);
+}
+
+/* Style for radio button container */
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    margin-bottom: 20px;
+}
+
+/* Style for individual radio button labels */
+.radio-buttons label {
+    font-size: 1.1rem;
+    color: #4aa14d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.radio-buttons input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+/* Custom styled radio buttons */
+.radio-buttons input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #032c04; /* Change color when selected */
+}
+
+.radio-buttons input[type="radio"]:checked + label:before {
+    content: "✔ "; /* Add a checkmark for the selected radio */
+    color: #4aa14d;
+}
+
+/* Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4aa14d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #032c04;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    form h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="submit"] {
+        font-size: 1rem;
+    }
+} /* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full screen height */
+    margin: 0;
+}
+
+/* Container for the form */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading styles */
+form h2 {
+    margin-bottom: 20px;
+    color: #032c04;
+    font-size: 1.8rem;
+}
+
+/* Input fields styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #4aa14d;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Input field focus effect */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #032c04;
+    box-shadow: 0 0 5px rgba(0, 50, 0, 0.5);
+}
+
+/* Style for radio button container */
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    margin-bottom: 20px;
+}
+
+/* Style for individual radio button labels */
+.radio-buttons label {
+    font-size: 1.1rem;
+    color: #4aa14d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.radio-buttons input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+/* Custom styled radio buttons */
+.radio-buttons input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #032c04; /* Change color when selected */
+}
+
+.radio-buttons input[type="radio"]:checked + label:before {
+    content: "✔ "; /* Add a checkmark for the selected radio */
+    color: #4aa14d;
+}
+
+/* Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4aa14d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #032c04;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    form h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="submit"] {
+        font-size: 1rem;
+    }
+} /* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full screen height */
+    margin: 0;
+}
+
+/* Container for the form */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading styles */
+form h2 {
+    margin-bottom: 20px;
+    color: #032c04;
+    font-size: 1.8rem;
+}
+
+/* Input fields styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #4aa14d;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Input field focus effect */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #032c04;
+    box-shadow: 0 0 5px rgba(0, 50, 0, 0.5);
+}
+
+/* Style for radio button container */
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    margin-bottom: 20px;
+}
+
+/* Style for individual radio button labels */
+.radio-buttons label {
+    font-size: 1.1rem;
+    color: #4aa14d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.radio-buttons input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+/* Custom styled radio buttons */
+.radio-buttons input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #032c04; /* Change color when selected */
+}
+
+.radio-buttons input[type="radio"]:checked + label:before {
+    content: "✔ "; /* Add a checkmark for the selected radio */
+    color: #4aa14d;
+}
+
+/* Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4aa14d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #032c04;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    form h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="submit"] {
+        font-size: 1rem;
+    }
+} /* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full screen height */
+    margin: 0;
+}
+
+/* Container for the form */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading styles */
+form h2 {
+    margin-bottom: 20px;
+    color: #032c04;
+    font-size: 1.8rem;
+}
+
+/* Input fields styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #4aa14d;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Input field focus effect */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #032c04;
+    box-shadow: 0 0 5px rgba(0, 50, 0, 0.5);
+}
+
+/* Style for radio button container */
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    margin-bottom: 20px;
+}
+
+/* Style for individual radio button labels */
+.radio-buttons label {
+    font-size: 1.1rem;
+    color: #4aa14d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.radio-buttons input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+/* Custom styled radio buttons */
+.radio-buttons input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #032c04; /* Change color when selected */
+}
+
+.radio-buttons input[type="radio"]:checked + label:before {
+    content: "✔ "; /* Add a checkmark for the selected radio */
+    color: #4aa14d;
+}
+
+/* Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4aa14d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #032c04;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    form h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="submit"] {
+        font-size: 1rem;
+    }
+} /* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full screen height */
+    margin: 0;
+}
+
+/* Container for the form */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading styles */
+form h2 {
+    margin-bottom: 20px;
+    color: #032c04;
+    font-size: 1.8rem;
+}
+
+/* Input fields styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #4aa14d;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Input field focus effect */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #032c04;
+    box-shadow: 0 0 5px rgba(0, 50, 0, 0.5);
+}
+
+/* Style for radio button container */
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    margin-bottom: 20px;
+}
+
+/* Style for individual radio button labels */
+.radio-buttons label {
+    font-size: 1.1rem;
+    color: #4aa14d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.radio-buttons input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+/* Custom styled radio buttons */
+.radio-buttons input[type="radio"]:checked + label {
+    font-weight: bold;
+    color: #032c04; /* Change color when selected */
+}
+
+.radio-buttons input[type="radio"]:checked + label:before {
+    content: "✔ "; /* Add a checkmark for the selected radio */
+    color: #4aa14d;
+}
+
+/* Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4aa14d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #032c04;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    form h2 {
+        font-size: 1.5rem;
+    }
+
+    input[type="submit"] {
+        font-size: 1rem;
+    }
+}
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/foodtype.jpg') no-repeat center center/cover;
+    opacity: 0.2;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+/* Green overlay with some transparency */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(173, 245, 173, 0.3); 
+    z-index: -1;
+}
