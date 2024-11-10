@@ -80,13 +80,33 @@ with open('allrecipe.json', 'r') as file:
     recipes = json.load(file)
 
 # Function to find recipes by ingredient
+import re
+
+# Function to convert time to minutes for sorting
+def convert_time_to_minutes(time_str):
+    match = re.match(r"(\d+)\s*(minutes|hour)", time_str)
+    if match:
+        value, unit = match.groups()
+        value = int(value)
+        if unit == "hour":
+            return value * 60  # Convert hours to minutes
+        else:
+            return value
+    return 0  # Default if no match found
+
 def find_recipes_by_ingredient(ingredient_name, recipes):
     result = []
     for recipe in recipes:
+        # Check if the ingredient exists in the recipe's ingredient list
         if any(ingredient['Ingredient'].lower() == ingredient_name.lower() for ingredient in recipe['Ingredients']):
-            result.append((recipe['Recipe Name'], recipe['Time'], recipe))
+            result.append((recipe['Recipe Name'], recipe['Time'], recipe))  # Append recipe name, time, and recipe details
+
     if not result:
         return "Sorry, no recipe exists."
+    
+    # Sort the result by time (convert time to minutes)
+    result.sort(key=lambda x: convert_time_to_minutes(x[1]))  # Sorting by the time (second element in tuple)
+    
     return result
 
 # Function to check allowed file extensions
