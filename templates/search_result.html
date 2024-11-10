@@ -4,18 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='result_style.css') }}">
 </head>
 <body>
-    <h1>Search Results</h1>
+    <header>
+        <div class="logo-container">CookEase</div>
+        <h1>Search Results</h1>
+    </header>
+
+    <!-- Search Bar and Filter -->
+    <div class="search-container">
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search for recipes...">
+        <select id="filter" class="filter">
+            <option value="" disabled selected>Filter by Time</option>
+            <option value="quick">Quick (Under 30 min)</option>
+            <option value="medium">Medium (30-60 min)</option>
+            <option value="long">Long (Over 60 min)</option>
+        </select>
+        <button class="search-button" id="search-button">Search</button>
+    </div>
 
     {% if message %}
-        <p>{{ message }}</p>
+        <p class="message">{{ message }}</p>
     {% else %}
-        <ul>
+        <ul class="recipe-list">
             {% for recipe_name, time, recipe in recipes %}
-                <li>
-                    <a href="{{ url_for('recipe_details', recipe_name=recipe['Recipe Name']) }}">
-                        {{ recipe_name }} - Time: {{ time }}
+                <li class="recipe-item">
+                    <a href="{{ url_for('recipe_details', recipe_name=recipe['Recipe Name']) }}" class="recipe-link">
+                        <!-- Display recipe image with dynamic file name -->
+                        <img src="{{ url_for('static', filename='images/' + recipe_name.lower().replace(' ', '_') + '.jpg') }}" 
+                             alt="{{ recipe_name }}" class="recipe-image">
+                        <strong>{{ recipe_name }}</strong> - Time: {{ time }}
                     </a>
                 </li>
             {% endfor %}

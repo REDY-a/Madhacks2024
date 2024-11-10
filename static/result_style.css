@@ -1,0 +1,164 @@
+/* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Header styles */
+header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #032c04;
+    margin-top: 100px;
+}
+
+/* Logo style for top-left corner */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4aa14d;
+}
+
+/* Message display */
+.message {
+    font-size: 1.5rem;
+    color: #d9534f;
+    margin-top: 20px;
+}
+
+/* Styling for the list of recipes */
+.recipe-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+    gap: 20px; /* Space between the columns */
+    list-style: none;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* Individual recipe item */
+.recipe-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center; /* Center the content */
+}
+
+.recipe-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Link styling for each recipe */
+.recipe-link {
+    font-size: 1.2rem;
+    color: #0a3212;
+    text-decoration: none;
+}
+
+.recipe-link:hover {
+    color: #053607;
+}
+
+/* Styling for the recipe image */
+.recipe-image {
+    width: 100%;
+    height: 150px; /* Set a fixed height */
+    object-fit: cover; /* Ensure image scales without distorting */
+    border-radius: 5px; /* Optional: round the image corners */
+    margin-bottom: 10px; /* Space between image and text */
+}
+
+/* Pseudo-element for the image overlay with green tint */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/foodtype.jpg') no-repeat center center/cover;
+    background-attachment: fixed; /* Fixed background */
+    opacity: 0.2;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+/* Green overlay with some transparency */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(173, 245, 173, 0.3); 
+    z-index: -1;
+}
+
+/* Center the search bar, filter, and search button */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between search bar, filter, and button */
+}
+
+.search-bar, .filter, .search-button {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #4aa14d;
+    border-radius: 5px;
+}
+
+.search-bar {
+    width: 250px;
+}
+
+.filter {
+    width: 200px;
+}
+
+.search-button {
+    background-color: #4aa14d;
+    color: white;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #032c04;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    .recipe-list {
+        grid-template-columns: 1fr; /* Stack recipes in a single column */
+    }
+}
