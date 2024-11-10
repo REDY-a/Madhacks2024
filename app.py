@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_mysqldb import MySQL
-from app import UserData, db
-from flaskext.mysql import MySQL
+import mysql.connector
+from mysql.connector import Error
 import pymysql
 import json
 import os
@@ -13,95 +12,94 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'flask'
+app.config['MYSQL_USER'] = 'username'
+app.config['MYSQL_PASSWORD'] = '20B423tian'
+app.config['MYSQL_DATABASE'] = 'userdata'
 
-# Configuring the Flask app to connect to the MySQL database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:your_password@localhost/books_db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# Establish MySQL connection
+def create_connection():
+    try:
+        connection = mysql.connector.connect(
+            host=app.config['MYSQL_HOST'],
+            database=app.config['MYSQL_DATABASE'],
+            user=app.config['MYSQL_USER'],
+            password=app.config['MYSQL_PASSWORD']
+        )
+        if connection.is_connected():
+            print("Connected to MySQL database")
+        return connection
+    except Error as e:
+        print(f"Error: {e}")
+        return None
 
-mysql = MySQL()
-mysql.init_app(app)
+# Sample route for login form (assuming you have form.html as in the uploaded file)
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['name']
+        password = request.form['password']
+        
+        # Connect to MySQL database and validate user
+        connection = create_connection()
+        cursor = connection.cursor()
+        query = "SELECT * FROM users WHERE username = %s AND password = %s"
+        cursor.execute(query, (username, password))
+        user = cursor.fetchone()
+        cursor.close()
+        connection.close()
+        
+        if user:
+            return redirect(url_for('welcome'))
+        else:
+            return "Invalid credentials. Please try again."
 
-cursor = mysql.get_db().cursor()
-
-@app.route('/form')
-def form():
     return render_template('form.html')
 
-@app.route('/login', methods = ['POST', 'GET'])
-def login():
-    if request.method == 'GET':
-        return "Login via the login Form"
-     
-    if request.method == 'POST':
-        name = request.form['name']
-        password = request.form['password']
-        cursor = mysql.connection.cursor()
-        cursor.execute(''' INSERT INTO user_data VALUES(%s,%s)''',(username,password))
-        mysql.connection.commit()
-        cursor.close()
-        return f"Done!!"
+# New route for displaying the login/signup form
+@app.route('/auth_form')
+def auth_form():
+    return render_template('form.html')
 
-#Executing SQL Statements
-cursor.execute(''' CREATE TABLE user_data(username, password) ''')
-# cursor.execute(''' INSERT INTO table_name VALUES(v1,v2...) ''')
-# cursor.execute(''' DELETE FROM table_name WHERE condition ''')
+# Route to handle authentication and account creation
+@app.route('/auth', methods=['POST'])
+def auth():
+    username = request.form['username']
+    password = request.form['password']
+    action = request.form['action']
 
-#Saving the Actions performed on the DB
-mysql.connection.commit()
+    connection = create_connection()
+    cursor = connection.cursor()
 
-for databases in cursor:
-    print(databases)
+    if action == 'login':
+        # Attempt to log in
+        query = "SELECT * FROM users WHERE username = %s AND password = %s"
+        cursor.execute(query, (username, password))
+        user = cursor.fetchone()
+        if user:
+            return redirect(url_for('welcome'))
+        else:
+            return "Login failed. Check your credentials and try again."
+    
+    elif action == 'signup':
+        # Check if username already exists
+        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+        existing_user = cursor.fetchone()
+        if existing_user:
+            return "Username already exists. Choose a different username."
 
-hostname = 'localhost'
-user = 'root'
-password = 'your_password'
+        # Insert new user into database
+        query = "INSERT INTO users (username, password) VALUES (%s, %s)"
+        cursor.execute(query, (username, password))
+        connection.commit()
+        return "Account created successfully! You can now log in."
 
-db = pymysql.connections.Connection(
-    host=hostname,
-    user=user,
-    password=password
-)
+    cursor.close()
+    connection.close()
 
-# Creating an instance of the SQLAlchemy class
-db = SQLAlchemy(app)
-
-cursor = db.cursor()
-cursor.execute("CREATE DATABASE IF NOT EXISTS user_data")
-cursor.execute("SHOW DATABASES")
-
-# Defining the Book model
-class Book(db.Model):
-    # Specifying the table name
-    __tablename__ = 'user_data'
-
-    # Specifying the columns and their data types
-    username = db.Column(db.String(30), primary_key=True)
-    password = db.Column(db.String(100), nullable=False)
-
-    # Defining the constructor method
-    def __init__(self, password):
-        self.password = password
-
-    # Defining the __repr__ method
-    def __repr__(self):
-        return f'<UserData {self.username}>'
-
-# Creating the books table in the database
-db.create_all()
-
-# Checking if the table exists on the MySQL server
-cursor = db.cursor()
-cursor.execute("SHOW TABLES")
-
-for tables in cursor:
-    print(tables)
-
-#Closing the cursor
-cursor.close()
-db.close()
+# Welcome route after successful login
+@app.route('/welcome')
+def welcome():
+    return "Welcome to the application!"
 
 app.secret_key = 'your_secret_key'  # For session management
 USER_DATA_FILE = 'user_data.json'
