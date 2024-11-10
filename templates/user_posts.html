@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Posts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='posts_styles.css') }}" />
 </head>
 <body>
     <h1>User Posts</h1>
@@ -11,8 +12,10 @@
         <ul>
             {% for post in user_posts %}
                 <li>
-                    <p><strong>{{ post['username'] }}</strong> uploaded a photo of <em>{{ post['recipe'] }}</em></p>
-                    <img src="{{ post['image'] }}" alt="Food Image" style="width: 300px;">
+                    <p id="upload-info"><strong>{{ post['username'] }}</strong> uploaded a photo of <em>{{ post['recipe'] }}</em></p>
+                    <div>
+                        <img src="{{ post['image'] }}" alt="Food Image" style="width: 300px;">
+                    </div>
                 </li>
             {% endfor %}
         </ul>
@@ -20,6 +23,8 @@
         <p>No user posts yet.</p>
     {% endif %}
     <br>
-    <a href="{{ url_for('index') }}">Back to Search</a>
+    <div class = "back-button-container">
+        <a href="{{ url_for('index') }}">Back to Search</a>
+    </div>
 </body>
 </html>
