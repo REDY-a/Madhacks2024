@@ -1,10 +1,110 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask_mysqldb import MySQL
+from app import UserData, db
+from flaskext.mysql import MySQL
+import pymysql
 import json
 import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'flask'
+
+# Configuring the Flask app to connect to the MySQL database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:your_password@localhost/books_db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+mysql = MySQL()
+mysql.init_app(app)
+
+cursor = mysql.get_db().cursor()
+
+@app.route('/form')
+def form():
+    return render_template('form.html')
+
+@app.route('/login', methods = ['POST', 'GET'])
+def login():
+    if request.method == 'GET':
+        return "Login via the login Form"
+     
+    if request.method == 'POST':
+        name = request.form['name']
+        password = request.form['password']
+        cursor = mysql.connection.cursor()
+        cursor.execute(''' INSERT INTO user_data VALUES(%s,%s)''',(username,password))
+        mysql.connection.commit()
+        cursor.close()
+        return f"Done!!"
+
+#Executing SQL Statements
+cursor.execute(''' CREATE TABLE user_data(username, password) ''')
+# cursor.execute(''' INSERT INTO table_name VALUES(v1,v2...) ''')
+# cursor.execute(''' DELETE FROM table_name WHERE condition ''')
+
+#Saving the Actions performed on the DB
+mysql.connection.commit()
+
+for databases in cursor:
+    print(databases)
+
+hostname = 'localhost'
+user = 'root'
+password = 'your_password'
+
+db = pymysql.connections.Connection(
+    host=hostname,
+    user=user,
+    password=password
+)
+
+# Creating an instance of the SQLAlchemy class
+db = SQLAlchemy(app)
+
+cursor = db.cursor()
+cursor.execute("CREATE DATABASE IF NOT EXISTS user_data")
+cursor.execute("SHOW DATABASES")
+
+# Defining the Book model
+class Book(db.Model):
+    # Specifying the table name
+    __tablename__ = 'user_data'
+
+    # Specifying the columns and their data types
+    username = db.Column(db.String(30), primary_key=True)
+    password = db.Column(db.String(100), nullable=False)
+
+    # Defining the constructor method
+    def __init__(self, password):
+        self.password = password
+
+    # Defining the __repr__ method
+    def __repr__(self):
+        return f'<UserData {self.username}>'
+
+# Creating the books table in the database
+db.create_all()
+
+# Checking if the table exists on the MySQL server
+cursor = db.cursor()
+cursor.execute("SHOW TABLES")
+
+for tables in cursor:
+    print(tables)
+
+#Closing the cursor
+cursor.close()
+db.close()
+
+app.secret_key = 'your_secret_key'  # For session management
+USER_DATA_FILE = 'user_data.json'
 
 @app.route('/')
 def index():
@@ -16,12 +116,6 @@ def index():
         user_posts = []
     
     return render_template('index.html', user_posts=user_posts)
-
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
-app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
-
-app.secret_key = 'your_secret_key'  # For session management
-USER_DATA_FILE = 'user_data.json'
 
 # Load user data from the JSON file
 def load_user_data():
