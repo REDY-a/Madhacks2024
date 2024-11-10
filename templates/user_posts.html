@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Posts</title>
+</head>
+<body>
+    <h1>User Posts</h1>
+    {% if user_posts %}
+        <ul>
+            {% for post in user_posts %}
+                <li>
+                    <p><strong>{{ post['username'] }}</strong> uploaded a photo of <em>{{ post['recipe'] }}</em></p>
+                    <img src="{{ post['image'] }}" alt="Food Image" style="width: 300px;">
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No user posts yet.</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('index') }}">Back to Search</a>
+</body>
+</html>

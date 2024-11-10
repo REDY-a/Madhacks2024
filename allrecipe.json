@@ -1,0 +1,32 @@
+[
+    {
+        "Recipe Name": "Chocolate Chip Cookies",
+        "Time": "30 minutes",
+        "Ingredients": [
+            { "Ingredient": "Flour", "Quantity": "2", "Unit": "cups" },
+            { "Ingredient": "Sugar", "Quantity": "1", "Unit": "cup" },
+            { "Ingredient": "Chocolate Chips", "Quantity": "1", "Unit": "cup" }
+        ],
+        "Instructions": [
+            "Preheat oven to 350 degrees F (175 degrees C).",
+            "In a medium bowl, cream together the sugar and butter.",
+            "Bake for 8 to 10 minutes, or until golden brown."
+        ],
+        "Image": "static/images/chocolate_chip_cookies.jpg"
+    },
+    {
+        "Recipe Name": "Spaghetti Bolognese",
+        "Time": "45 minutes",
+        "Ingredients": [
+            { "Ingredient": "Spaghetti", "Quantity": "200", "Unit": "grams" },
+            { "Ingredient": "Ground Beef", "Quantity": "500", "Unit": "grams" },
+            { "Ingredient": "Tomato Sauce", "Quantity": "1", "Unit": "cup" }
+        ],
+        "Instructions": [
+            "Cook spaghetti according to package instructions.",
+            "In a large skillet, cook beef over medium heat until no longer pink.",
+            "Stir in the tomato sauce and simmer for 20 minutes."
+        ],
+        "Image": "static/images/spaghetti_bolognese.jpg"
+    }
+]

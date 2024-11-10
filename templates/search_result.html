@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        <ul>
+            {% for recipe_name, time, recipe in recipes %}
+                <li>
+                    <a href="{{ url_for('recipe_details', recipe_name=recipe['Recipe Name']) }}">
+                        {{ recipe_name }} - Time: {{ time }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
