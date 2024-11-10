@@ -3,26 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ recipe['Recipe Name'] }} Details</title>
+    <title>{{ recipe['Recipe Name'] }}</title>
 </head>
 <body>
     <h1>{{ recipe['Recipe Name'] }}</h1>
-    <p><strong>Time:</strong> {{ recipe['Time'] }}</p>
-    
+    <p>Time: {{ recipe['Time'] }}</p>
     <h2>Ingredients:</h2>
     <ul>
         {% for ingredient in recipe['Ingredients'] %}
             <li>{{ ingredient['Ingredient'] }} - {{ ingredient['Quantity'] }} {{ ingredient['Unit'] }}</li>
         {% endfor %}
     </ul>
-
     <h2>Instructions:</h2>
-    <ol>
+    <ul>
         {% for instruction in recipe['Instructions'] %}
             <li>{{ instruction }}</li>
         {% endfor %}
-    </ol>
-
-    <a href="/">Back to Search</a>
+    </ul>
+    {% if recipe['Image'] %}
+        <img src="{{ url_for('static', filename=recipe['Image'][7:]) }}" alt="{{ recipe['Recipe Name'] }} image">
+    {% endif %}
+    <h2>Upload Your Food Image</h2>
+    <form action="{{ url_for('upload_image') }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="recipe_name" value="{{ recipe['Recipe Name'] }}">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <input type="submit" value="Upload">
+    </form>
+    <a href="{{ url_for('index') }}">Back to Search</a>
 </body>
 </html>
