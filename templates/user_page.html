@@ -28,13 +28,18 @@
         }
         .exp-bar {
             height: 30px;
-            width: 50%; /* Starting width, representing current experience */
+            width: 0%; /* Starting width, representing current experience */
             background-color: #4caf50;
             line-height: 30px;
             color: white;
             text-align: center;
             font-weight: bold;
             transition: width 0.5s;
+        }
+        .level-display {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -44,9 +49,10 @@
     <div class="container">
         <h3>Current Progress</h3>
         <p>Welcome! Here’s what you gained so far!</p>
+        <p class="level-diaplay">LEVEL: <span id="level">1</span></p>
         
         <div class="exp-bar-container">
-            <div class="exp-bar" id="expBar">50%</div>
+            <div class="exp-bar" id="expBar">0%</div>
         </div>
 
         <!-- Optional: Add a button to simulate gaining experience -->
@@ -54,12 +60,23 @@
     </div>
 
     <script>
+        let level = 1;
+
         function gainExperience(amount) {
             const expBar = document.getElementById('expBar');
-            let currentExp = parseInt(expBar.style.width);
-            currentExp = Math.min(100, currentExp + amount); // Cap at 100%
-            expBar.style.width = (currentExp + amount) + '%';
-            expBar.textContent = (currentExp + amount) + '%';
+            const levelDisplay = document.getElementById('level');
+
+            let currentExp = parseInt(expBar.style.width) || 0;
+            currentExp += 1.84*amount/(level*level/(0.317^level));
+
+            if (currentExp >= 100) {
+                level++; // Increment level
+                levelDisplay.textContent = level; // Update level display
+                currentExp = currentExp - 100; // Carry over remaining experience if it exceeds 100
+            }
+
+            expBar.style.width = currentExp + '%';
+            expBar.textContent = (Math.ceil(currentExp * 10) / 10).toFixed(1) + '%';
         }
     </script>
     </div>
