@@ -1,4 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
+import mysql.connector
+from mysql.connector import Error
+import pymysql
 import json
 import os
 from werkzeug.utils import secure_filename
@@ -7,25 +10,104 @@ import re
 
 # Create Flask application
 app = Flask(__name__)
-
-# Configuration for MySQL connection
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'  # Your MySQL username
-app.config['MYSQL_PASSWORD'] = ''  # Your MySQL password
-app.config['MYSQL_DB'] = 'flask'  # Your MySQL database name
-
-# Initialize MySQL
-mysql = MySQL(app)
-
-# Set up upload folder and allowed extensions
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
-# Secret key for session management
-app.secret_key = 'your_secret_key'
+app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'localhost')
+app.config['MYSQL_DATABASE'] = os.getenv('MYSQL_DATABASE', 'userdata')
+app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'username')
+app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', '20B423tian')
 
+# Establish MySQL connection
+def create_connection():
+    try:
+        connection = mysql.connector.connect(
+            host=app.config['MYSQL_HOST'],
+            database=app.config['MYSQL_DATABASE'],
+            user=app.config['MYSQL_USER'],
+            password=app.config['MYSQL_PASSWORD']
+        )
+        if connection.is_connected():
+            print("Connected to MySQL database")
+        return connection
+    except Error as e:
+        print(f"Error: {e}")
+        return None
+
+# Sample route for login form (assuming you have form.html as in the uploaded file)
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['name']
+        password = request.form['password']
+        
+        # Connect to MySQL database and validate user
+        connection = create_connection()
+        cursor = connection.cursor()
+        query = "SELECT * FROM users WHERE username = %s AND password = %s"
+        cursor.execute(query, (username, password))
+        user = cursor.fetchone()
+        cursor.close()
+        connection.close()
+        
+        if user:
+            return redirect(url_for('welcome'))
+        else:
+            return "Invalid credentials. Please try again."
+
+    return render_template('form.html')
+
+# New route for displaying the login/signup form
+@app.route('/auth_form')
+def auth_form():
+    return render_template('form.html')
+
+# Route to handle authentication and account creation
+@app.route('/auth', methods=['POST'])
+def auth():
+    username = request.form['username']
+    password = request.form['password']
+    action = request.form['action']
+
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    if action == 'login':
+        # Attempt to log in
+        query = "SELECT * FROM users WHERE username = %s AND password = %s"
+        cursor.execute(query, (username, password))
+        user = cursor.fetchone()
+        if user:
+            return redirect(url_for('welcome'))
+        else:
+            return "Login failed. Check your credentials and try again."
+    
+    elif action == 'signup':
+        # Check if username already exists
+        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+        existing_user = cursor.fetchone()
+        if existing_user:
+            return "Username already exists. Choose a different username."
+
+        # Insert new user into database
+        query = "INSERT INTO users (username, password) VALUES (%s, %s)"
+        cursor.execute(query, (username, password))
+        connection.commit()
+        return "Account created successfully! You can now log in."
+
+    cursor.close()
+    connection.close()
+
+# Welcome route after successful login
+@app.route('/welcome')
+def welcome():
+    return "Welcome to the application!"
+
+app.secret_key = 'your_secret_key'  # For session management
 USER_DATA_FILE = 'user_data.json'
 
+# Initialize MySQL
+mysql = MySQL(app)
 # Load user data from the JSON file
 def load_user_data():
     try:

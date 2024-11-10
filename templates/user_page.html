@@ -4,106 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        h1 {
-            color: #333;
-        }
-        .profile-container {
-            text-align: center;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-        }
-        .exp-bar-container {
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        .exp-bar {
-            height: 30px;
-            background-color: #4caf50;
-            line-height: 30px;
-            color: white;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 10px;
-            transition: width 0.5s;
-        }
-        .level-info {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='UserPage.css') }}">
 </head>
 <body>
-
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        <p>Welcome, <strong>{{ username }}</strong>!</p>
-        <p class="level-info">LEVEL: <strong id="level">{{ level }}</strong></p>
-        <p class="level-info">Experience: <strong>{{ experience }}%</strong></p>
-        <a href="{{ url_for('gain_experience', username=username, amount=10) }}" class="btn">Get a bonus!</a>
-
-        <!-- Experience Progress Bar -->
-        <div class="exp-bar-container">
-            <div class="exp-bar" id="expBar" style="width: {{ experience }}%;">{{ experience }}%</div>
+    <!-- Sidebar with placeholder photo and navigation -->
+    <div class="sidebar">
+        <!-- Placeholder User Photo -->
+        <div class="user-photo-placeholder"></div>
+        
+        <!-- Username Bar -->
+        <div class="username-bar">
+            <p class="username">Username: JohnDoe</p>
         </div>
-        <button class="btn" onclick="gainExperience()">Congratulations!</button>
-    
-        <script>
-            let level = {{ level }}; // Initialize level from the Flask variable
-    
-            function gainExperience() {
-                const expBar = document.getElementById('expBar');
-                const levelDisplay = document.getElementById('level');
-    
-                // Parse the current width as a number, default to 0 if not set
-                let currentExp = parseFloat(expBar.style.width) || 0;
-    
-                // Increase experience and check if it reaches or exceeds 100%
-                currentExp += 10;
-                if (currentExp >= 100) {
-                    level++; // Increment level
-                    levelDisplay.textContent = level; // Update level display
-                    currentExp -= 100; // Carry over remaining experience if it exceeds 100
-                }
-                
-                // Update experience bar
-                expBar.style.width = currentExp + '%';
-                expBar.textContent = currentExp.toFixed(1) + '%';
-            }
-        </script>
+
+        <!-- Experience Section -->
+        <div class="exp-section">
+            <div class="exp-bar-container">
+                <div class="exp-bar" id="expBar" style="width: {{ experience }}%;">{{ experience }}%</div>
+            </div>
+            <button class="btn" onclick="gainExperience()">Congratulations!</button>
+            <div class="experience-tube">
+               
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="btn-group">
+            <button class="nav-btn">Personal Info</button>
+            <button class="nav-btn">System Settings</button>
+        </div>
+
+        <!-- Log Out Button -->
+        <button class="logout-btn">Log Out</button>
     </div>
 
+    <!-- Main content area -->
+    <div class="main-content">
+        <!-- User's Posted History Section -->
+        <div class="history-container">
+            <h2>Your Posted History</h2>
+            <div class="bricks-container">
+                <!-- Placeholder white bricks for posts -->
+                <div class="brick"></div>
+                <div class="brick"></div>
+                <div class="brick"></div>
+                <div class="brick"></div>
+                <div class="brick"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let level = 1;
+
+        function gainExperience() {
+            const expBar = document.getElementById('expBar');
+
+            let currentExp = parseFloat(expBar.style.width) || 0;
+            currentExp += 10;
+            if (currentExp >= 100) {
+                level++;
+                currentExp = currentExp - 100;
+            }
+
+            expBar.style.width = currentExp + '%';
+            expBar.textContent = currentExp.toFixed(1) + '%';
+        }
+    </script>
 </body>
 </html>
