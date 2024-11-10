@@ -1,0 +1,102 @@
+/* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Header styles */
+header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #236c26;
+    margin-top: 20px;
+}
+
+/* Logo style for top-left corner */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4aa14d;
+}
+
+/* Message display */
+.message {
+    font-size: 1.5rem;
+    color: #d9534f;
+    margin-top: 20px;
+}
+
+/* Styling for the list of recipes */
+.recipe-list {
+    list-style: none;
+    width: 100%;
+    max-width: 800px;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* Individual recipe item */
+.recipe-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Link styling for each recipe */
+.recipe-link {
+    font-size: 1.2rem;
+    color: #4aa14d;
+    text-decoration: none;
+}
+
+.recipe-link:hover {
+    color: #388e3c;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .recipe-list {
+        max-width: 100%;
+    }
+
+    .recipe-item {
+        padding: 10px;
+    }
+
+    .message {
+        font-size: 1.2rem;
+    }
+}

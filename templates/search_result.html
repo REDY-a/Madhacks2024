@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='result_style.css') }}">
 </head>
 <body>
-    <h1>Search Results</h1>
+    <header>
+        <div class="logo-container">CookEase</div>
+        <h1>Search Results</h1>
+    </header>
 
     {% if message %}
-        <p>{{ message }}</p>
+        <p class="message">{{ message }}</p>
     {% else %}
-        <ul>
+        <ul class="recipe-list">
             {% for recipe_name, time, recipe in recipes %}
-                <li>
-                    <a href="{{ url_for('recipe_details', recipe_name=recipe['Recipe Name']) }}">
-                        {{ recipe_name }} - Time: {{ time }}
+                <li class="recipe-item">
+                    <a href="{{ url_for('recipe_details', recipe_name=recipe['Recipe Name']) }}" class="recipe-link">
+                        <strong>{{ recipe_name }}</strong> - Time: {{ time }}
                     </a>
                 </li>
             {% endfor %}
