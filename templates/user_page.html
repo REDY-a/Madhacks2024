@@ -55,13 +55,40 @@
     <div class="profile-container">
         <h1>User Profile</h1>
         <p>Welcome, <strong>{{ username }}</strong>!</p>
-        <p class="level-info">Level: <strong>{{ level }}</strong></p>
+        <p class="level-info" >LEVEL: <strong  id="level">{{ level }}</strong></p>
         <p class="level-info">Experience: <strong>{{ experience }}%</strong></p>
 
         <!-- Experience Progress Bar -->
         <div class="exp-bar-container">
-            <div class="exp-bar" style="width: {{ experience }}%;">{{ experience }}%</div>
+            <div class="exp-bar" id="expBar" style="width: {{ experience }}%;">{{ experience }}%</div>
         </div>
+        <button class="btn" onclick="gainExperience()">Congratulations!</button>
+
+        <script>
+            let level = 1; // Initialize level
+    
+            function gainExperience() {
+                const expBar = document.getElementById('expBar');
+                const levelDisplay = document.getElementById('level');
+    
+                // Parse the current width as a number, default to 50 if not set
+                let currentExp = parseFloat(expBar.style.width) || 0;
+    
+                // Increase experience and check if it reaches or exceeds 100%
+                currentExp += 10;
+                if (currentExp >= 100) {
+                    level++; // Increment level
+                    levelDisplay.textContent = level; // Update level display
+                     // Round up to one decimal place
+                    currentExp = currentExp - 100; // Carry over remaining experience if it exceeds 100
+                }
+                
+                // Update experience bar
+                expBar.style.width = currentExp + '%';
+                expBar.textContent = currentExp.toFixed(1) + '%';
+            }
+        </script>
+
     </div>
 
 </body>
