@@ -1,0 +1,96 @@
+/* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+    font-family: 'Dosis', sans-serif;
+    color: #333;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 4rem;
+    color: #4aa14d;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+input[type="text"] {
+    padding: 15px;
+    border: 2px solid #4aa14d;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1.2rem;
+    background-color: #fff;
+}
+
+input[type="text"]::placeholder {
+    color: #888;
+}
+
+input[type="submit"] {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #4aa14d;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #388e3c;
+}
+
+a {
+    margin-top: 20px;
+    color: #1e6c21;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+/* Pseudo-element for the image overlay with green tint */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/foodtype.jpg') no-repeat center center/cover;
+    opacity: 0.2;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+/* Green overlay with some transparency */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(173, 245, 173, 0.3); 
+    z-index: -1;
+}
+a:hover {
+    color: #388e3c;
+}
