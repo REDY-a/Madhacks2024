@@ -28,5 +28,72 @@
             "Stir in the tomato sauce and simmer for 20 minutes."
         ],
         "Image": "static/images/spaghetti_bolognese.jpg"
+    },
+    {
+        "Recipe Name": "Pancakes",
+        "Time": "20 minutes",
+        "Ingredients": [
+            { "Ingredient": "Flour", "Quantity": "1", "Unit": "cup" },
+            { "Ingredient": "Milk", "Quantity": "1", "Unit": "cup" },
+            { "Ingredient": "Egg", "Quantity": "1", "Unit": "piece" },
+            { "Ingredient": "Baking Powder", "Quantity": "1", "Unit": "tbsp" }
+        ],
+        "Instructions": [
+            "In a bowl, whisk together flour, baking powder, milk, and egg.",
+            "Heat a griddle or pan over medium heat and lightly grease.",
+            "Pour batter onto the griddle and cook for 2-3 minutes on each side."
+        ],
+        "Image": "static/images/pancakes.jpg"
+    },
+    {
+        "Recipe Name": "Apple Pie",
+        "Time": "1 hour",
+        "Ingredients": [
+            { "Ingredient": "Flour", "Quantity": "2", "Unit": "cups" },
+            { "Ingredient": "Butter", "Quantity": "1/2", "Unit": "cup" },
+            { "Ingredient": "Sugar", "Quantity": "1/4", "Unit": "cup" },
+            { "Ingredient": "Apples", "Quantity": "4", "Unit": "pieces" }
+        ],
+        "Instructions": [
+            "Preheat oven to 350 degrees F (175 degrees C).",
+            "In a bowl, mix flour and butter to make a dough.",
+            "Roll the dough and place it in a pie dish. Add sliced apples and sugar on top.",
+            "Cover with another layer of dough and bake for 45 minutes."
+        ],
+        "Image": "static/images/apple_pie.jpg"
+    },
+    {
+        "Recipe Name": "Homemade Pizza Dough",
+        "Time": "1 hour 30 minutes",
+        "Ingredients": [
+            { "Ingredient": "Flour", "Quantity": "3", "Unit": "cups" },
+            { "Ingredient": "Yeast", "Quantity": "1", "Unit": "packet" },
+            { "Ingredient": "Sugar", "Quantity": "1", "Unit": "tbsp" },
+            { "Ingredient": "Olive Oil", "Quantity": "2", "Unit": "tbsp" }
+        ],
+        "Instructions": [
+            "Dissolve yeast and sugar in warm water and let it sit for 10 minutes.",
+            "Mix flour, yeast mixture, and olive oil to form a dough.",
+            "Knead dough for 5 minutes, then cover and let it rise for 1 hour.",
+            "Preheat oven to 475 degrees F (245 degrees C). Roll out dough and add toppings."
+        ],
+        "Image": "static/images/homemade_pizza_dough.jpg"
+    },
+    {
+        "Recipe Name": "Biscuits",
+        "Time": "25 minutes",
+        "Ingredients": [
+            { "Ingredient": "Flour", "Quantity": "2", "Unit": "cups" },
+            { "Ingredient": "Baking Powder", "Quantity": "2", "Unit": "tsp" },
+            { "Ingredient": "Butter", "Quantity": "1/4", "Unit": "cup" },
+            { "Ingredient": "Milk", "Quantity": "1/2", "Unit": "cup" }
+        ],
+        "Instructions": [
+            "Preheat oven to 425 degrees F (220 degrees C).",
+            "In a bowl, mix flour, baking powder, and butter until crumbly.",
+            "Add milk and stir to form a dough. Drop spoonfuls onto a baking sheet.",
+            "Bake for 10-12 minutes or until golden brown."
+        ],
+        "Image": "static/images/biscuits.jpg"
     }
 ]
