@@ -4,12 +4,24 @@ import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    # Load user posts from 'user_posts.json'
+    if os.path.exists('user_posts.json'):
+        with open('user_posts.json', 'r') as file:
+            user_posts = json.load(file)
+    else:
+        user_posts = []
+    
+    return render_template('index.html', user_posts=user_posts)
+
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
 app.secret_key = 'your_secret_key'  # For session management
-
 USER_DATA_FILE = 'user_data.json'
-
 
 # Load user data from the JSON file
 def load_user_data():
@@ -81,16 +93,6 @@ def find_recipes_by_ingredient(ingredient_name, recipes):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-@app.route('/')
-def index():
-    # Load user posts from 'user_posts.json'
-    if os.path.exists('user_posts.json'):
-        with open('user_posts.json', 'r') as file:
-            user_posts = json.load(file)
-    else:
-        user_posts = []
-    
-    return render_template('index.html', user_posts=user_posts)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
