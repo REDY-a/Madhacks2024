@@ -67,7 +67,7 @@
             const levelDisplay = document.getElementById('level');
 
             let currentExp = parseInt(expBar.style.width) || 0;
-            currentExp += 1.84*amount/(level*level/(0.317^level));
+            currentExp += 3.84*amount/(level*level/(level^(1/1.2)));
 
             if (currentExp >= 100) {
                 level++; // Increment level
