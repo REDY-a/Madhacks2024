@@ -18,7 +18,7 @@ body {
 }
 
 h1 {
-    font-size: 4rem;
+    font-size: 2.5rem;
     color: #4aa14d;
     margin-bottom: 20px;
 }
@@ -61,7 +61,7 @@ input[type="submit"]:hover {
 
 a {
     margin-top: 20px;
-    color: #1e6c21;
+    color: #4aa14d;
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s ease;
